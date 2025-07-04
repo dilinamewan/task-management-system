@@ -118,6 +118,22 @@ php artisan serve
 
 Visit `http://localhost:8000` to access the application.
 
+## 🆕 Latest Features & Updates
+
+### ✨ **Recently Added Features**
+- **🔍 Advanced Search & Filtering**: Search tasks by title/description and filter by status
+- **📋 Task Duplication**: One-click task copying with smart defaults
+- **🔄 Enhanced Navigation**: Improved user interface with better accessibility
+- **🛡️ Robust Authorization**: Policy-based access control for all operations
+- **📱 Responsive Design**: Optimized for all device sizes
+
+### 🚀 **Upcoming Features**
+- **📊 Dashboard Analytics**: Task completion statistics and productivity insights
+- **🌙 Dark Mode**: Toggle between light and dark themes
+- **📄 Export Functions**: Download tasks as CSV/PDF
+- **🏷️ Task Categories**: Organize tasks with custom categories
+- **💬 Task Comments**: Add notes and updates to tasks
+
 ## 📚 Usage Guide
 
 ### 🔐 Authentication
@@ -129,6 +145,8 @@ Visit `http://localhost:8000` to access the application.
 
 #### 👤 Regular User
 - Create, edit, and delete own tasks
+- Search and filter personal tasks
+- Duplicate existing tasks for quick creation
 - View personal task dashboard
 - Manage personal profile
 - Track task progress
@@ -140,6 +158,7 @@ Visit `http://localhost:8000` to access the application.
 - Create new admin/user accounts
 - Delete users and their tasks
 - System-wide task overview
+- Search and filter all system tasks
 
 ### 📋 Task Management
 
@@ -152,6 +171,21 @@ Visit `http://localhost:8000` to access the application.
    - Due Date
    - Status (Pending/In Progress/Completed)
 
+#### Searching & Filtering Tasks
+1. **Search**: Use the search box to find tasks by title or description
+2. **Filter by Status**: Use the status dropdown to filter tasks
+3. **Clear Filters**: Click "Clear" to reset all filters
+4. **Results**: Filtered results maintain pagination and sorting
+
+#### Task Duplication
+1. **From Task List**: Click the copy icon (📋) next to any task
+2. **From Task Details**: Click the "Duplicate" button
+3. **Smart Duplication**: 
+   - Adds "Copy of" prefix to title
+   - Resets status to "pending"
+   - Assigns to current user
+   - Preserves description, priority, and due date
+
 #### Task Status Flow
 - **Pending** (0% Complete) → **In Progress** (50% Complete) → **Completed** (100% Complete)
 
@@ -160,6 +194,7 @@ Visit `http://localhost:8000` to access the application.
 - **Priority Indicators**: Color-coded badges
 - **Due Date Alerts**: Overdue task warnings
 - **Task Assignment**: Admin can view all user tasks
+- **Quick Actions**: View, duplicate, edit, delete tasks
 
 ### 🎯 Navigation
 
@@ -199,6 +234,23 @@ Authorization is handled through Laravel Policies:
 - Users can only manage their own tasks
 - Admins can view all tasks but respect user ownership for modifications
 
+### Task Features Configuration
+
+#### Search & Filtering
+The search functionality searches through:
+- Task titles (partial matching)
+- Task descriptions (partial matching)
+- Combined with status filtering for precise results
+
+#### Task Duplication Rules
+When duplicating a task:
+- Title gets "Copy of" prefix automatically
+- Status resets to "pending" for new workflow
+- Due date and priority are preserved
+- Description content is copied exactly
+- Duplicated task is assigned to current user
+- Original task remains unchanged
+
 ## 🗂️ Project Structure
 
 ```
@@ -206,28 +258,28 @@ Authorization is handled through Laravel Policies:
 │   ├── Http/
 │   │   ├── Controllers/
 │   │   │   ├── DashboardController.php
-│   │   │   ├── TaskController.php
+│   │   │   ├── TaskController.php (includes duplicate method)
 │   │   │   ├── UserController.php
 │   │   │   └── ProfileController.php
 │   │   ├── Middleware/
 │   │   │   └── AdminMiddleware.php
 │   │   └── Requests/
 │   ├── Models/
-│   │   ├── User.php
-│   │   └── Task.php
+│   │   ├── User.php (with role methods)
+│   │   └── Task.php (with badge attributes)
 │   └── Policies/
-│       └── TaskPolicy.php
+│       └── TaskPolicy.php (authorization rules)
 ├── resources/
 │   └── views/
 │       ├── admin/
-│       │   └── users/
-│       ├── tasks/
-│       └── layouts/
+│       │   └── users/ (complete CRUD views)
+│       ├── tasks/ (with search, filter, duplicate features)
+│       └── layouts/ (responsive navigation)
 ├── routes/
-│   ├── web.php
+│   ├── web.php (includes duplicate route)
 │   └── auth.php
 └── database/
-    └── migrations/
+    └── migrations/ (users and tasks tables)
 ```
 
 ## 🎨 Customization
