@@ -1,61 +1,284 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📋 Task Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, feature-rich task management application built with Laravel 11, Bootstrap 5, and Font Awesome. This system provides comprehensive task and user management capabilities with role-based access control.
 
-## About Laravel
+![Laravel](https://img.shields.io/badge/Laravel-11.x-red?style=flat-square&logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.2+-blue?style=flat-square&logo=php)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-purple?style=flat-square&logo=bootstrap)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 👤 User Management
+- **Role-based Access Control** (Admin/User roles)
+- **User CRUD Operations** (Create, Read, Update, Delete)
+- **User Profile Management**
+- **Email Verification System**
+- **Secure Authentication** with Laravel Breeze
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 📝 Task Management
+- **Complete Task CRUD Operations**
+- **Task Status Tracking** (Pending, In Progress, Completed)
+- **Priority Levels** (Low, Medium, High)
+- **Due Date Management** with overdue indicators
+- **Task Progress Visualization** (0%, 50%, 100%)
+- **Task Assignment** (Admin can view all users' tasks)
 
-## Learning Laravel
+### 🎨 User Interface
+- **Responsive Design** with Bootstrap 5
+- **Modern Navigation Bar** with dropdown menus
+- **Clean, Professional Layout**
+- **Font Awesome Icons** for better UX
+- **Color-coded Status Badges**
+- **Progress Bars** and visual indicators
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🔐 Security & Authorization
+- **Policy-based Authorization** for task operations
+- **CSRF Protection** on all forms
+- **Middleware Protection** for admin routes
+- **Secure Password Hashing**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Technology Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend**: Laravel 11.x
+- **Frontend**: Bootstrap 5, Font Awesome 6
+- **Database**: MySQL/SQLite
+- **Authentication**: Laravel Breeze
+- **Authorization**: Laravel Policies
+- **Styling**: Bootstrap CSS Framework
+- **Icons**: Font Awesome
 
-## Laravel Sponsors
+## 📋 Requirements
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- PHP 8.2 or higher
+- Composer
+- Node.js & NPM
+- MySQL or SQLite database
+- Web server (Apache/Nginx) or Laravel Sail
 
-### Premium Partners
+## ⚡ Quick Installation
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd task-management-system
+```
 
-## Contributing
+### 2. Install Dependencies
+```bash
+# Install PHP dependencies
+composer install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Install Node.js dependencies
+npm install
+```
 
-## Code of Conduct
+### 3. Environment Setup
+```bash
+# Copy environment file
+cp .env.example .env
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Generate application key
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+### 4. Database Configuration
+Edit `.env` file with your database credentials:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=task_management
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Database Setup
+```bash
+# Run migrations
+php artisan migrate
 
-## License
+# Seed database (optional)
+php artisan db:seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 6. Build Assets
+```bash
+# Compile assets
+npm run build
+```
+
+### 7. Start Development Server
+```bash
+php artisan serve
+```
+
+Visit `http://localhost:8000` to access the application.
+
+## 📚 Usage Guide
+
+### 🔐 Authentication
+1. **Register**: Create a new account (default role: User)
+2. **Login**: Access your dashboard
+3. **Admin Access**: Admin accounts can manage all users and tasks
+
+### 👥 User Roles
+
+#### 👤 Regular User
+- Create, edit, and delete own tasks
+- View personal task dashboard
+- Manage personal profile
+- Track task progress
+
+#### 🛡️ Admin User
+- All user permissions
+- Access to Users management section
+- View and manage all users
+- Create new admin/user accounts
+- Delete users and their tasks
+- System-wide task overview
+
+### 📋 Task Management
+
+#### Creating Tasks
+1. Navigate to **Tasks** → **Create Task**
+2. Fill in task details:
+   - Title (required)
+   - Description
+   - Priority (Low/Medium/High)
+   - Due Date
+   - Status (Pending/In Progress/Completed)
+
+#### Task Status Flow
+- **Pending** (0% Complete) → **In Progress** (50% Complete) → **Completed** (100% Complete)
+
+#### Task Features
+- **Progress Tracking**: Visual progress bars
+- **Priority Indicators**: Color-coded badges
+- **Due Date Alerts**: Overdue task warnings
+- **Task Assignment**: Admin can view all user tasks
+
+### 🎯 Navigation
+
+#### Main Navigation
+- **Dashboard**: Overview of your tasks
+- **Tasks**: Task management interface
+- **Users**: User management (Admin only)
+
+#### User Menu Dropdown
+- **Profile**: Edit personal information
+- **Dashboard**: Quick access to dashboard
+- **Logout**: Secure session termination
+
+## 🔧 Advanced Configuration
+
+### Admin User Creation
+To create an admin user manually:
+
+1. **Via Database**:
+```sql
+UPDATE users SET role = 'admin' WHERE email = 'your-email@example.com';
+```
+
+2. **Via Tinker**:
+```bash
+php artisan tinker
+User::where('email', 'your-email@example.com')->update(['role' => 'admin']);
+```
+
+### Middleware Configuration
+The system uses custom middleware for admin protection:
+- `AdminMiddleware`: Restricts access to admin-only routes
+- Registered in `bootstrap/app.php`
+
+### Task Policies
+Authorization is handled through Laravel Policies:
+- Users can only manage their own tasks
+- Admins can view all tasks but respect user ownership for modifications
+
+## 🗂️ Project Structure
+
+```
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── DashboardController.php
+│   │   │   ├── TaskController.php
+│   │   │   ├── UserController.php
+│   │   │   └── ProfileController.php
+│   │   ├── Middleware/
+│   │   │   └── AdminMiddleware.php
+│   │   └── Requests/
+│   ├── Models/
+│   │   ├── User.php
+│   │   └── Task.php
+│   └── Policies/
+│       └── TaskPolicy.php
+├── resources/
+│   └── views/
+│       ├── admin/
+│       │   └── users/
+│       ├── tasks/
+│       └── layouts/
+├── routes/
+│   ├── web.php
+│   └── auth.php
+└── database/
+    └── migrations/
+```
+
+## 🎨 Customization
+
+### Styling
+- Bootstrap classes can be customized in `resources/css/app.css`
+- Navigation styling in `resources/views/layouts/navigation.blade.php`
+
+### Adding New Task Status
+1. Update migration: `database/migrations/*_create_tasks_table.php`
+2. Update Task model: `app/Models/Task.php`
+3. Update progress calculation in task views
+
+### Custom User Roles
+1. Modify User model: `app/Models/User.php`
+2. Update middleware: `app/Http/Middleware/AdminMiddleware.php`
+3. Adjust authorization policies as needed
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **"Target class [admin] does not exist"**
+   - Run: `php artisan config:clear`
+   - Ensure middleware is registered in `bootstrap/app.php`
+
+2. **Bootstrap/CSS not loading**
+   - Run: `npm run build`
+   - Check asset compilation
+
+3. **Permission denied errors**
+   - Check file permissions
+   - Ensure storage and cache directories are writable
+
+4. **Database connection issues**
+   - Verify `.env` database configuration
+   - Ensure database server is running
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Create a Pull Request
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 🆘 Support
+
+For support, please create an issue in the repository or contact the development team.
+
+---
+
+**Built with ❤️ using Laravel 11 and Bootstrap 5**
