@@ -40,6 +40,10 @@ A modern, feature-rich task management application built with Laravel 11, Bootst
 - **CSRF Protection** on all forms
 - **Middleware Protection** for admin routes
 - **Secure Password Hashing**
+- **SQL Injection Protection** via Eloquent ORM and parameter binding
+- **Mass Assignment Protection** with fillable model attributes
+- **Input Validation** for all user inputs
+- **Authentication Middleware** for route protection
 
 ## 🛠️ Technology Stack
 
@@ -317,6 +321,98 @@ When duplicating a task:
 4. **Database connection issues**
    - Verify `.env` database configuration
    - Ensure database server is running
+
+## 🛡️ Security Features
+
+### SQL Injection Protection
+This application implements multiple layers of protection against SQL injection attacks:
+
+#### **1. Eloquent ORM Parameter Binding**
+All database queries use Laravel's Eloquent ORM, which automatically binds parameters safely:
+```php
+// Automatically protected against SQL injection
+Task::where('user_id', $userId)->get();
+User::find($id);
+Task::create($validatedData);
+```
+
+#### **2. Query Builder Safe Searches**
+Search functionality uses parameter binding to prevent injection:
+```php
+// Safe parameter binding in search queries
+$query->where('title', 'like', "%{$search}%")
+      ->orWhere('description', 'like', "%{$search}%");
+```
+
+#### **3. Mass Assignment Protection**
+Models define `$fillable` arrays to prevent mass assignment vulnerabilities:
+```php
+// Task Model - Only these fields can be mass-assigned
+protected $fillable = [
+    'title', 'description', 'status', 'priority', 'due_date', 'user_id'
+];
+```
+
+#### **4. Input Validation**
+All user inputs are validated before database operations:
+```php
+$request->validate([
+    'title' => 'required|string|max:255',
+    'description' => 'required|string',
+    'priority' => 'required|in:low,medium,high',
+    'due_date' => 'required|date|after_or_equal:today',
+]);
+```
+
+### Authorization & Access Control
+
+#### **Policy-Based Authorization**
+Task access is controlled through Laravel Policies:
+```php
+// Only task owner or admin can perform these actions
+$this->authorize('view', $task);
+$this->authorize('update', $task);
+$this->authorize('delete', $task);
+```
+
+#### **Role-Based Access Control**
+- **Users**: Can only access their own tasks
+- **Admins**: Can view all tasks but respect ownership for modifications
+
+#### **Authentication Middleware**
+All routes are protected by authentication:
+```php
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Protected routes
+});
+```
+
+### Additional Security Measures
+
+#### **CSRF Protection**
+All forms include automatic CSRF token protection:
+```blade
+@csrf  {{-- Automatically included in all forms --}}
+```
+
+#### **Password Security**
+- Passwords are automatically hashed using Laravel's secure hashing
+- Password reset functionality with secure tokens
+- Email verification for account security
+
+#### **Session Security**
+- Secure session configuration
+- Session regeneration on login
+- Automatic session cleanup
+
+### Security Best Practices Implemented
+- ✅ **No Raw SQL Queries**: Exclusively uses Eloquent ORM and Query Builder
+- ✅ **Parameter Binding**: All user inputs are automatically escaped and bound
+- ✅ **Validation First**: All inputs validated before database operations
+- ✅ **Whitelist Approach**: Only specific fields can be mass-assigned
+- ✅ **Authorization Checks**: Users can only access authorized resources
+- ✅ **Environment Security**: Sensitive data stored in environment variables
+- ✅ **Error Handling**: Secure error pages without sensitive information
 
 ## 🤝 Contributing
 
