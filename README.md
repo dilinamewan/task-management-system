@@ -334,6 +334,8 @@ This project is open-sourced software licensed under the [MIT license](https://o
 
 For support, please create an issue in the repository or contact the development team.
 
+**Contact**: H.P.G Dilina Mewan - dilinamewan07@gmail.com
+
 ---
 
 **Built with ❤️ using Laravel 11 and Bootstrap 5**
