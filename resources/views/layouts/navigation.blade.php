@@ -4,7 +4,7 @@
             <i class="fas fa-tasks me-2"></i>Task Manager
         </a>
         
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         
@@ -31,13 +31,13 @@
             
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user me-1"></i>{{ Auth::user()->name }}
                         @if(auth()->user()->isAdmin())
                             <span class="badge bg-danger ms-1">Admin</span>
                         @endif
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ route('profile.edit') }}">
                             <i class="fas fa-user-cog me-2"></i>Profile
                         </a></li>
