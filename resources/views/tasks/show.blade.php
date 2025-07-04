@@ -11,6 +11,14 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">{{ $task->title }}</h5>
                     <div class="btn-group">
+                        @can('view', $task)
+                            <form method="POST" action="{{ route('tasks.duplicate', $task) }}" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-info">
+                                    <i class="fas fa-copy"></i> Duplicate
+                                </button>
+                            </form>
+                        @endcan
                         @can('update', $task)
                             <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i> Edit

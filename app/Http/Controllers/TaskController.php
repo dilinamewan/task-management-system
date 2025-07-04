@@ -99,4 +99,23 @@ class TaskController extends Controller
         
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully!');
     }
+
+    public function duplicate(Task $task)
+    {
+        // Check if user can view the original task (for authorization)
+        $this->authorize('view', $task);
+        
+        // Create a duplicate task
+        $duplicatedTask = Task::create([
+            'title' => 'Copy of ' . $task->title,
+            'description' => $task->description,
+            'status' => 'pending', // Reset status to pending
+            'priority' => $task->priority,
+            'due_date' => $task->due_date,
+            'user_id' => auth()->id(), // Assign to current user
+        ]);
+        
+        return redirect()->route('tasks.show', $duplicatedTask)
+                        ->with('success', 'Task duplicated successfully!');
+    }
 }

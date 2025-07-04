@@ -18,11 +18,14 @@ A modern, feature-rich task management application built with Laravel 11, Bootst
 
 ### 📝 Task Management
 - **Complete Task CRUD Operations**
+- **Task Search & Filtering** (Search by title/description, filter by status)
+- **Task Duplication** (Copy existing tasks with one click)
 - **Task Status Tracking** (Pending, In Progress, Completed)
 - **Priority Levels** (Low, Medium, High)
 - **Due Date Management** with overdue indicators
 - **Task Progress Visualization** (0%, 50%, 100%)
 - **Task Assignment** (Admin can view all users' tasks)
+- **Task Sorting** (Sort by creation date, status, priority)
 
 ### 🎨 User Interface
 - **Responsive Design** with Bootstrap 5

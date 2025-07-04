@@ -92,6 +92,14 @@
                                                     <a href="{{ route('tasks.show', $task) }}" class="btn btn-info">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    @can('view', $task)
+                                                        <form method="POST" action="{{ route('tasks.duplicate', $task) }}" class="d-inline">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-secondary" title="Duplicate Task">
+                                                                <i class="fas fa-copy"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endcan
                                                     @can('update', $task)
                                                         <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning">
                                                             <i class="fas fa-edit"></i>
