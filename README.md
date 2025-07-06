@@ -127,11 +127,26 @@ DB_PASSWORD=your_password
 # Run migrations (includes performance indexes)
 php artisan migrate
 
-# Seed database (optional)
+# Seed database (creates default users)
 php artisan db:seed
 ```
 
-### 6. Build Assets
+### 6. Default Login Credentials
+After running the database seeder, you can log in with these default accounts:
+
+#### 👨‍💼 **Admin Account**
+- **Email**: `admin@example.com`
+- **Password**: `password`
+- **Role**: Administrator (full access to all features)
+
+#### 👤 **Regular User Account**
+- **Email**: `user@example.com` 
+- **Password**: `password`
+- **Role**: User (access to own tasks only)
+
+> ⚠️ **Security Note**: Change these default passwords immediately in production!
+
+### 7. Build Assets
 ```bash
 # Compile assets
 npm run build
@@ -172,10 +187,25 @@ See `.env.performance.example` for complete configuration details.
 
 ## 📚 Usage Guide
 
-### 🔐 Authentication
-1. **Register**: Create a new account (default role: User)
-2. **Login**: Access your dashboard with persistent sessions
-3. **Admin Access**: Admin accounts can manage all users and tasks
+### 🔐 Authentication & Getting Started
+
+#### Quick Start with Default Accounts
+After running `php artisan db:seed`, use these credentials to explore the application:
+
+**Admin Login:**
+- Email: `admin@example.com`
+- Password: `password`
+- Access: Full system administration
+
+**User Login:**
+- Email: `user@example.com`
+- Password: `password` 
+- Access: Personal task management
+
+#### Account Management
+1. **Register**: Create new accounts (default role: User)
+2. **Login**: Access dashboard with persistent sessions
+3. **Admin Access**: Manage all users and system-wide tasks
 
 ### 👥 User Roles
 
