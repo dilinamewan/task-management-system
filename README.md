@@ -159,6 +159,17 @@ php artisan serve
 
 Visit `http://localhost:8000` to access the application.
 
+### 🔍 Verify Setup (Optional)
+To verify that default users were created correctly and see all users in the database:
+```bash
+php artisan users:check
+```
+
+This command will:
+- ✅ Create missing default users (admin@example.com, user@example.com)
+- 📋 Display all users in the database
+- 🎯 Show login credentials
+
 ## ⚡ Performance Features
 
 This application is optimized for high performance with:
