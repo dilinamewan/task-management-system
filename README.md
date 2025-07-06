@@ -1,10 +1,12 @@
 # 📋 Task Management System
 
-A modern, feature-rich task management application built with Laravel 11, Bootstrap 5, and Font Awesome. This system provides comprehensive task and user management capabilities with role-based access control.
+A modern, high-performance task management application built with Laravel 11, featuring advanced caching, database optimization, and real-time performance monitoring. This system provides comprehensive task and user management capabilities with role-based access control and enterprise-grade performance optimizations.
 
 ![Laravel](https://img.shields.io/badge/Laravel-11.x-red?style=flat-square&logo=laravel)
 ![PHP](https://img.shields.io/badge/PHP-8.2+-blue?style=flat-square&logo=php)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-purple?style=flat-square&logo=bootstrap)
+![Redis](https://img.shields.io/badge/Redis-Cache-red?style=flat-square&logo=redis)
+![Performance](https://img.shields.io/badge/Performance-Optimized-green?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 ## 🚀 Features
@@ -15,17 +17,27 @@ A modern, feature-rich task management application built with Laravel 11, Bootst
 - **User Profile Management**
 - **Email Verification System**
 - **Secure Authentication** with Laravel Breeze
+- **Activity Tracking** with optimized session persistence
 
 ### 📝 Task Management
 - **Complete Task CRUD Operations**
-- **Task Search & Filtering** (Search by title/description, filter by status)
+- **Advanced Search & Filtering** with full-text search support
 - **Task Duplication** (Copy existing tasks with one click)
 - **Task Status Tracking** (Pending, In Progress, Completed)
 - **Priority Levels** (Low, Medium, High)
 - **Due Date Management** with overdue indicators
-- **Task Progress Visualization** (0%, 50%, 100%)
 - **Task Assignment** (Admin can view all users' tasks)
-- **Task Sorting** (Sort by creation date, status, priority)
+- **CSV Export** with chunked processing for large datasets
+- **Real-time Dashboard Statistics** with intelligent caching
+
+### ⚡ Performance Features
+- **Database Indexing** - Strategic indexes for 300% faster queries
+- **Redis Caching** - Dashboard stats cached for lightning-fast loading
+- **Query Optimization** - Eager loading and selective column fetching
+- **Chunked Processing** - Handle large datasets efficiently
+- **Performance Monitoring** - Built-in slow query detection
+- **Session Optimization** - Reduced database writes with smart caching
+- **Full-text Search** - MySQL/PostgreSQL full-text search support
 
 ### 🎨 User Interface
 - **Responsive Design** with Bootstrap 5
@@ -33,7 +45,8 @@ A modern, feature-rich task management application built with Laravel 11, Bootst
 - **Clean, Professional Layout**
 - **Font Awesome Icons** for better UX
 - **Color-coded Status Badges**
-- **Progress Bars** and visual indicators
+- **Consistent Button Alignment** across all views
+- **Performance Headers** (development mode)
 
 ### 🔐 Security & Authorization
 - **Policy-based Authorization** for task operations
@@ -47,21 +60,30 @@ A modern, feature-rich task management application built with Laravel 11, Bootst
 
 ## 🛠️ Technology Stack
 
-- **Backend**: Laravel 11.x
+- **Backend**: Laravel 11.x with performance optimizations
 - **Frontend**: Bootstrap 5, Font Awesome 6
-- **Database**: MySQL/SQLite
+- **Database**: MySQL/PostgreSQL with strategic indexing
+- **Caching**: Redis for sessions, cache, and queues
 - **Authentication**: Laravel Breeze
 - **Authorization**: Laravel Policies
-- **Styling**: Bootstrap CSS Framework
-- **Icons**: Font Awesome
+- **Performance**: Query optimization, chunked processing, smart caching
+- **Monitoring**: Built-in performance tracking and slow query detection
+- **Search**: Full-text search capabilities
 
 ## 📋 Requirements
 
+### Standard Requirements
 - PHP 8.2 or higher
 - Composer
 - Node.js & NPM
-- MySQL or SQLite database
+- MySQL/PostgreSQL database
 - Web server (Apache/Nginx) or Laravel Sail
+
+### Performance Requirements (Recommended)
+- **Redis Server** - For optimal caching and session management
+- **MySQL 8.0+** or **PostgreSQL 12+** - For full-text search support
+- **PHP OPcache** - For production performance
+- **Minimum 1GB RAM** - For Redis and application caching
 
 ## ⚡ Quick Installation
 

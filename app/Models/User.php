@@ -16,6 +16,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'last_activity',
     ];
 
     protected $hidden = [
@@ -26,6 +27,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'last_activity' => 'datetime',
     ];
 
     public function tasks()
@@ -41,5 +43,15 @@ class User extends Authenticatable
     public function isUser()
     {
         return $this->role === 'user';
+    }
+    
+    public function updateLastActivity()
+    {
+        $this->update(['last_activity' => now()]);
+    }
+    
+    public function isOnline()
+    {
+        return $this->last_activity && now()->diffInMinutes($this->last_activity) <= config('session.lifetime', 720);
     }
 }

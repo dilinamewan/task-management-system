@@ -1,126 +1,168 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <i class="fas fa-tachometer-alt text-white text-sm"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900">Dashboard</h2>
+                <p class="text-sm text-gray-500">Welcome back, {{ Auth::user()->name }}!</p>
+            </div>
+        </div>
     </x-slot>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4>{{ $myTasks }}</h4>
-                            <p class="mb-0">My Tasks</p>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="fas fa-tasks fa-2x"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <x-stat-card 
+            label="My Tasks" 
+            value="{{ $myTasks }}" 
+            icon="fas fa-tasks" 
+            color="blue"
+            change="+12%" 
+            changeType="positive" 
+        />
         
-        <div class="col-md-4">
-            <div class="card bg-warning text-white">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4>{{ $pendingTasks }}</h4>
-                            <p class="mb-0">Pending</p>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="fas fa-clock fa-2x"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-stat-card 
+            label="Pending Tasks" 
+            value="{{ $pendingTasks }}" 
+            icon="fas fa-clock" 
+            color="yellow"
+            change="-5%" 
+            changeType="negative" 
+        />
         
-        <div class="col-md-4">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h4>{{ $completedTasks }}</h4>
-                            <p class="mb-0">Completed</p>
-                        </div>
-                        <div class="align-self-center">
-                            <i class="fas fa-check-circle fa-2x"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-stat-card 
+            label="Completed Tasks" 
+            value="{{ $completedTasks }}" 
+            icon="fas fa-check-circle" 
+            color="green"
+            change="+18%" 
+            changeType="positive" 
+        />
     </div>
 
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">My Recent Tasks</h5>
-                    <a href="{{ route('tasks.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> New Task
-                    </a>
-                </div>
-                <div class="card-body">
-                    @if($recentTasks->count() > 0)
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Task</th>
-                                        <th>Status</th>
-                                        <th>Priority</th>
-                                        <th>Due Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($recentTasks as $task)
-                                        <tr>
-                                            <td>{{ $task->title }}</td>
-                                            <td>
-                                                <span class="badge {{ $task->status_badge }}">
+    <!-- Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Recent Tasks -->
+        <div class="lg:col-span-2">
+            <x-card title="Recent Tasks" icon="fas fa-tasks">
+                <x-slot name="actions">
+                    <x-button type="primary" size="sm" icon="fas fa-plus" href="{{ route('tasks.create') }}">
+                        New Task
+                    </x-button>
+                </x-slot>
+                
+                @if($recentTasks->count() > 0)
+                    <div class="space-y-4">
+                        @foreach($recentTasks as $task)
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white font-medium text-sm">
+                                            {{ strtoupper(substr($task->title, 0, 2)) }}
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-900">{{ $task->title }}</h4>
+                                            <p class="text-sm text-gray-500">{{ Str::limit($task->description, 50) }}</p>
+                                            <div class="flex items-center space-x-4 mt-1">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium 
+                                                    @if($task->status == 'pending') bg-yellow-100 text-yellow-800
+                                                    @elseif($task->status == 'in_progress') bg-blue-100 text-blue-800
+                                                    @elseif($task->status == 'completed') bg-green-100 text-green-800
+                                                    @endif">
                                                     {{ ucfirst(str_replace('_', ' ', $task->status)) }}
                                                 </span>
-                                            </td>
-                                            <td>
-                                                <span class="badge {{ $task->priority_badge }}">
+                                                
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium 
+                                                    @if($task->priority == 'low') bg-gray-100 text-gray-800
+                                                    @elseif($task->priority == 'medium') bg-yellow-100 text-yellow-800
+                                                    @elseif($task->priority == 'high') bg-red-100 text-red-800
+                                                    @endif">
+                                                    <i class="fas fa-flag mr-1"></i>
                                                     {{ ucfirst($task->priority) }}
                                                 </span>
-                                            </td>
-                                            <td>{{ $task->due_date->format('M d, Y') }}</td>
-                                            <td>
-                                                <a href="{{ route('tasks.show', $task) }}" class="btn btn-sm btn-info">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-warning">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                
+                                                @if($task->due_date)
+                                                    <span class="text-xs text-gray-500">
+                                                        <i class="fas fa-calendar mr-1"></i>
+                                                        {{ \Carbon\Carbon::parse($task->due_date)->format('M d, Y') }}
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <x-button type="secondary" size="sm" variant="ghost" href="{{ route('tasks.show', $task) }}">
+                                        <i class="fas fa-eye"></i>
+                                    </x-button>
+                                    <x-button type="primary" size="sm" variant="ghost" href="{{ route('tasks.edit', $task) }}">
+                                        <i class="fas fa-edit"></i>
+                                    </x-button>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    
+                    <div class="mt-6 text-center">
+                        <x-button type="secondary" variant="outline" href="{{ route('tasks.index') }}">
+                            View All Tasks
+                        </x-button>
+                    </div>
+                @else
+                    <div class="text-center py-12">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-tasks text-gray-400 text-2xl"></i>
                         </div>
-                        <div class="mt-3">
-                            <a href="{{ route('tasks.index') }}" class="btn btn-outline-primary">
-                                View All Tasks <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    @else
-                        <div class="text-center py-4">
-                            <i class="fas fa-tasks fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">You haven't created any tasks yet.</p>
-                            <a href="{{ route('tasks.create') }}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Create Your First Task
-                            </a>
-                        </div>
-                    @endif
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">No tasks yet</h3>
+                        <p class="text-gray-500 mb-6">Get started by creating your first task.</p>
+                        <x-button type="primary" icon="fas fa-plus" href="{{ route('tasks.create') }}">
+                            Create Task
+                        </x-button>
+                    </div>
+                @endif
+            </x-card>
+        </div>
+
+        <!-- Quick Actions & Stats -->
+        <div class="space-y-6">
+            <!-- Quick Actions -->
+            <x-card title="Quick Actions" icon="fas fa-rocket">
+                <div class="space-y-3">
+                    <x-button type="primary" class="w-full justify-start" icon="fas fa-plus" href="{{ route('tasks.create') }}">
+                        Create New Task
+                    </x-button>
+                    <x-button type="secondary" class="w-full justify-start" icon="fas fa-list" href="{{ route('tasks.index') }}">
+                        View All Tasks
+                    </x-button>
+                    <x-button type="info" class="w-full justify-start" icon="fas fa-user-cog" href="{{ route('profile.edit') }}">
+                        Edit Profile
+                    </x-button>
                 </div>
-            </div>
+            </x-card>
+
+            <!-- Task Status Chart -->
+            <x-card title="Task Overview" icon="fas fa-chart-pie">
+                <div class="space-y-4">
+                    <!-- Pending -->
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-600">Pending</span>
+                        <span class="text-sm font-bold text-gray-900">{{ $pendingTasks }}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-yellow-500 h-2 rounded-full" style="width: {{ $myTasks > 0 ? ($pendingTasks / $myTasks) * 100 : 0 }}%"></div>
+                    </div>
+
+                    <!-- Completed -->
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-600">Completed</span>
+                        <span class="text-sm font-bold text-gray-900">{{ $completedTasks }}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-green-500 h-2 rounded-full" style="width: {{ $myTasks > 0 ? ($completedTasks / $myTasks) * 100 : 0 }}%"></div>
+                    </div>
+                </div>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

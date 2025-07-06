@@ -15,5 +15,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+        
+        // Register model observers for cache invalidation
+        \App\Models\Task::observe(\App\Observers\TaskObserver::class);
     }
 }
